@@ -1,0 +1,87 @@
+# System Files
+.DS_Store
+.cache
+.cache*
+Thumbs.db
+.env*
+
+# debug
+npm-debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+yarn-error.log
+
+# testing profiling files
+coverage
+chrome-profiler-events*.json
+speed-measure-plugin*.json
+
+# IDEs and editors
+*.swp
+*.launch
+*.sublime-workspace
+.project
+.classpath
+.editorconfig
+.c9/
+.settings/
+.vscode
+.vscode/*
+.history/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+/.idea
+
+# misc
+*.tgz
+*.sass-cache
+.node_repl_history
+.eslintcache
+.yarn-integrity
+.npm
+.grunt
+.lock-wscript
+connect.lock
+coverage
+libpeerconnection.log
+testem.log
+typings/
+/typings
+
+# compiled output
+.next/
+.nuxt/
+.vuepress/dist
+.serverless
+dist
+tmp
+out-tsc
+bin
+obj
+build
+build/Release
+out/
+wwwroot
+
+# dependencies
+node_modules
+jspm_packages
+bower_components
+.pnp
+.pnp.js
+
+# etc
+
+spa-admin/src/environments/*
+environment.ts
+environment.prod.ts
+
+appsettings.json
+appsettings.Development.json
+
+ecomm.db
+
+.@
