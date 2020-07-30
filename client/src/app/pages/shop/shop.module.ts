@@ -1,0 +1,23 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+// ---
+import { ProductItem } from 'src/app/components/product-item.component';
+import { ShopPage } from 'src/app/pages/shop/shop.page';
+
+@NgModule({
+  declarations: [
+    ShopPage,
+    ProductItem
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild([
+      { path: '', component: ShopPage } 
+    ])
+  ],
+  providers: [
+    
+  ]
+})
+export class ShopModule { }

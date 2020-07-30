@@ -33,6 +33,15 @@ namespace Endpoint
             services.AddDbContext<StoreContext>(
                 o => o.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
             );
+            services.AddCors(
+                o => {
+                    o.AddPolicy("DevPolicy", p => {
+                        p.WithOrigins("http://localhost:4200")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+                }
+            );
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
@@ -44,6 +53,7 @@ namespace Endpoint
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors("DevPolicy");
             }
 
             app.UseHttpsRedirection();
