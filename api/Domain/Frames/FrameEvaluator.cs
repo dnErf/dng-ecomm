@@ -15,6 +15,21 @@ namespace Domain.Frames
             if (frame.Criteria != null)
             {
                 query = query.Where(frame.Criteria);
+            }
+
+            if (frame.OrderByAsc != null)
+            {
+                query = query.OrderBy(frame.OrderByAsc);
+            }
+
+            if (frame.OrderByDsc != null)
+            {
+                query = query.OrderByDescending(frame.OrderByDsc);
+            }
+
+            if (frame.IsPagingEnabled)
+            {
+                query = query.Skip(frame.Skip).Take(frame.Take);
             }          
 
             query = frame.Includes.Aggregate(query, (current, include) => current.Include(include));

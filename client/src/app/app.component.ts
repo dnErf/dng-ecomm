@@ -13,8 +13,8 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.data.subscribe((data) => {
-      console.log(data)
+    this.route.data.subscribe((response) => {
+      console.log(response)
     })
   }
 

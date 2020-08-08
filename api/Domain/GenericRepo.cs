@@ -19,6 +19,11 @@ namespace Domain
             _context.Set<T>().Add(entity);
         }
 
+        public async Task<int> CountAsync(IFrame<T> frame)
+        {
+            return await ApplyFrame(frame).CountAsync();
+        }
+
         public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);

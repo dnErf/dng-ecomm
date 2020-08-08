@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Frames;
 using Domain.Interfaces;
+using Endpoint.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using Model.Dtos;
@@ -18,14 +19,28 @@ namespace Endpoint.Controllers
             _mapper = mapper;
             _uow = uow;
         }
+        [HttpGet("brands")]
+        public async Task<ActionResult<IList<ProductBrand>>> GetProductBrands()
+        {
+            return Ok(await _uow.Repo<ProductBrand>().GetAllAsync());
+        }
+        [HttpGet("categories")]
+        public async Task<ActionResult<IList<ProductCategory>>> GetProductCategories()
+        {
+            return Ok(await _uow.Repo<ProductCategory>().GetAllAsync());
+        }
         [HttpGet]
-        public async Task<ActionResult<IList<ProductToReturn>>> GetProducts()
+        public async Task<ActionResult<IList<ProductToReturn>>> GetProducts([FromQuery]FrameParams frameParams)
         {
             var products = await _uow.Repo<Product>().GetAllWithFrame (
-                new ProductsWithBrandAndCategory()
+                new ProductsWithBrandAndCategory(frameParams)
             );
+            var totalItems = await _uow.Repo<Product>().CountAsync (
+                new ProductsWithFiltersForCount(frameParams)
+            );
+            var data = _mapper.Map<IList<Product>, IList<ProductToReturn>>(products);
             return Ok (
-                _mapper.Map<IList<Product>, IList<ProductToReturn>>(products)
+                new Pagination<ProductToReturn>(frameParams.PageIndex, frameParams.PageSize, totalItems, data)
             );
         }
         [HttpGet("{id}")]

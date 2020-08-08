@@ -11,7 +11,7 @@ namespace Domain.Interfaces
         Task<T> GetWithFrame(IFrame<T> frame);
         Task<IList<T>> GetAllAsync();
         Task<IList<T>> GetAllWithFrame(IFrame<T> frame);
-        // Task<int> CountAsync(IFrame<T> frame);
+        Task<int> CountAsync(IFrame<T> frame);
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);

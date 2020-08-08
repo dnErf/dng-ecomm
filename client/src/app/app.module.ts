@@ -5,8 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { BrandsResolver } from 'src/app/core/resolvers/brands.resolver';
+import { CategoriesResolver } from 'src/app/core/resolvers/categories.resolver';
 import { ProductService } from 'src/app/core/services/product.service';
-import { ProductListResolver } from 'src/app/core/resolvers/product-list.resolver';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -20,8 +21,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule
   ],
   providers: [
-    ProductService,
-    ProductListResolver
+    BrandsResolver,
+    CategoriesResolver,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })
