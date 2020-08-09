@@ -35,7 +35,7 @@ export class ProductService {
       params = params.append('categoryId', payload.categoryId.toString());
     }
     if (payload.search) {
-      params = params.append('searc', payload.search);
+      params = params.append('search', payload.search);
     }
     params = params.append('sort', payload.sort);
     params = params.append('pageIndex', payload.pageNumber.toString());
@@ -46,7 +46,7 @@ export class ProductService {
       );
   }
 
-  getProduct(id:number):Observable<iproduct> {
+  getProduct(id):Observable<iproduct> {
     return this.http.get<iproduct>(`${env.baseUrl}/products/${id}`)
   }
 
