@@ -12,7 +12,7 @@ const routes: Routes = [
   { 
     path: 'shop', 
     loadChildren: () => import('./pages/shop/shop.module').then(m => m.ShopModule), 
-    resolve: { brands: BrandsResolver, categories: CategoriesResolver } 
+    resolve: { brands: BrandsResolver, categories: CategoriesResolver }
   },
   { 
     path: '**',

@@ -1,5 +1,5 @@
+import { BreadcrumbModule } from 'xng-breadcrumb';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 // ---
@@ -15,11 +15,12 @@ import { ShopPage } from 'src/app/pages/shop/shop.page';
     ProductItem
   ],
   imports: [
+    BreadcrumbModule,
     CommonModule,
     SharedModule,
     RouterModule.forChild([
-      { path: '', component: ShopPage }, 
-      { path: ':id', component: ProductPage },
+      { path: '', component: ShopPage, data: { breadcrumb: 'Shop' } }, 
+      { path: ':id', component: ProductPage, data: { breadcrumb: { alias: 'productName' } } },
     ]),
     
   ],
