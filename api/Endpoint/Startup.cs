@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using StackExchange.Redis;
 
 namespace Endpoint
 {
@@ -33,6 +34,9 @@ namespace Endpoint
             services.AddDbContext<StoreContext>(
                 o => o.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
             );
+            services.AddSingleton<IConnectionMultiplexer>(
+                c => ConnectionMultiplexer.Connect(ConfigurationOptions.Parse(Configuration.GetConnectionString("RedisHost"), true))
+            );
             services.AddCors(
                 o => {
                     o.AddPolicy("DevPolicy", p => {
@@ -43,6 +47,7 @@ namespace Endpoint
                 }
             );
             services.AddAutoMapper(typeof(MappingProfiles));
+            services.AddScoped<IBasketRepo, BasketRepo>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
         }
