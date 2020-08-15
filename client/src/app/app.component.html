@@ -1,3 +1,17 @@
+<style>
+  .cart-no {
+    position: absolute;
+    min-height: 18px;
+    min-width: 20px;
+    border-radius: 50%;
+    font-size: .7rem;
+    background: gray;
+    color: white;
+    text-align: center;
+    top: 16px;
+    right: -8px;
+  }
+</style>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <a class="navbar-brand" routerLink="/">Ecomm</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,8 +26,21 @@
         <a class="nav-link" routerLink="/shop" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">Shop</a>
       </li>
     </ul>
+    <div class="d-flex align-items-center">
+      <a class="position-relative text-white mr-4" routerLink="/basket">
+        <i class="fa fa-shopping-cart fa-lg"></i>
+        <div *ngIf="$basket | async as basket" class="cart-no">
+          {{ basket.items.length }}
+        </div>
+      </a>
+      <div class="d-flex flex-row">
+        <a class="nav-link text-white" routerLink="/">Login</a>
+        <a class="nav-link text-white" routerLink="/">Sign Up</a>
+      </div>
+    </div>
   </div>
 </nav>
+
 <main role="main" class="mt-3 pt-3">
   <router-outlet></router-outlet>
 </main>

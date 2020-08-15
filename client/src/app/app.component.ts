@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+// ---
+import { BasketService } from 'src/app/core/services/basket.service'
+import { Observable } from 'rxjs';
+import { ibasket } from './common/interfaces/ibasket';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +11,21 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  constructor (
-    private route:ActivatedRoute
-  ) { }
+  $basket:Observable<ibasket>;
+
+  constructor (private servBasket:BasketService) { }
 
   ngOnInit() {
-    this.route.data.subscribe((response) => {
-      console.log(response)
-    })
+    let basketId = localStorage.getItem('basket_id');
+    if (basketId) {
+      this.servBasket.getBasket(basketId).subscribe(
+        () => {
+          console.log('basket init');
+          this.$basket = this.servBasket.$basket;
+        },
+        (err) => console.log(err)
+      )
+    }
   }
 
 }

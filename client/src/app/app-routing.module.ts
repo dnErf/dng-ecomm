@@ -15,6 +15,10 @@ const routes: Routes = [
     resolve: { brands: BrandsResolver, categories: CategoriesResolver }
   },
   { 
+    path: 'basket', 
+    loadChildren: () => import('./pages/basket/basket.module').then(m => m.BasketModule)
+  },
+  { 
     path: '**',
     redirectTo: '',
     pathMatch: 'full'
