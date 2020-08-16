@@ -77,8 +77,6 @@ bower_components
 spa-admin/src/environments/*
 environment.ts
 environment.prod.ts
-
-appsettings.json
 appsettings.Development.json
 
 .@
