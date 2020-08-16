@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 // ---
+import { LoadingInterceptor } from 'src/app/core/interceptors/loading.interceptor';
 import { SharedModule } from 'src/app/common/shared.module';
 import { ProductItem } from 'src/app/components/product-item.component';
 import { ProductPage } from 'src/app/pages/shop/product/product.page';
@@ -25,7 +26,6 @@ import { ShopPage } from 'src/app/pages/shop/shop.page';
     
   ],
   providers: [
-    
   ]
 })
 export class ShopModule { }

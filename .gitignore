@@ -64,7 +64,6 @@ obj
 build
 build/Release
 out/
-wwwroot
 
 # dependencies
 node_modules

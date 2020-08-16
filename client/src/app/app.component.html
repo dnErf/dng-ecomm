@@ -12,6 +12,9 @@
     right: -8px;
   }
 </style>
+
+<ngx-spinner>...</ngx-spinner>
+
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <a class="navbar-brand" routerLink="/">Ecomm</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,6 +27,9 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/shop" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">Shop</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/about" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">About</a>
       </li>
     </ul>
     <div class="d-flex align-items-center">
