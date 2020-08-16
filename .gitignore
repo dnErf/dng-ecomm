@@ -81,6 +81,4 @@ environment.prod.ts
 appsettings.json
 appsettings.Development.json
 
-ecomm.db
-
 .@

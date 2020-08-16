@@ -61,7 +61,10 @@ namespace Endpoint
                 app.UseCors("DevPolicy");
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseRouting();
 
@@ -70,6 +73,7 @@ namespace Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }
