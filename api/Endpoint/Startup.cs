@@ -33,7 +33,7 @@ namespace Endpoint
         {
             services.AddDbContext<StoreContext>(
                 // o => o.UseSqlite(Configuration.GetValue<string>("DATABASE_URL"))
-                o => o.UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_URL"))
+                o => o.UseNpgsql(Environment.GetEnvironmentVariable("PG_URL"))
             );
             // Configuration.GetValue<string>("env:DS_REDIS")
             // Environment.GetEnvironmentVariable("DS_REDIS")
