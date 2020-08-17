@@ -34,6 +34,13 @@ namespace Endpoint
             services.AddDbContext<StoreContext>(
                 o => o.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
             );
+            // Configuration.GetValue<string>("env:DS_REDIS")
+            // Environment.GetEnvironmentVariable("DS_REDIS")
+            foreach(var a in Configuration.GetChildren())
+            {
+                Console.WriteLine($"{a.Key} - {a.Value}");
+            }
+            // Console.WriteLine(Environment.GetEnvironmentVariable("DS_REDIS").ToString());
             services.AddSingleton<IConnectionMultiplexer>(
                 c => ConnectionMultiplexer.Connect(ConfigurationOptions.Parse(Configuration.GetConnectionString("RedisHost"), true))
             );
