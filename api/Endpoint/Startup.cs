@@ -33,19 +33,10 @@ namespace Endpoint
         {
             services.AddDbContext<StoreContext>(
                 // o => o.UseSqlite(Configuration.GetValue<string>("DATABASE_URL"))
-                // o => o.UseNpgsql(Environment.GetEnvironmentVariable("PG_URL")) ok
-                o => o.UseNpgsql(Configuration.GetValue<string>("PG_URL"))
+                o => o.UseNpgsql(Configuration.GetValue<string>("PG_LCL"))
             );
-            // Configuration.GetValue<string>("env:DS_REDIS")
-            // Environment.GetEnvironmentVariable("DS_REDIS")
-            // Configuration.GetValue<string>("REDIS_URL")
-            foreach(var a in Configuration.GetChildren())
-            {
-                Console.WriteLine($"{a.Key} - {a.Value}");
-            }
-            // Console.WriteLine(Environment.GetEnvironmentVariable("DS_REDIS").ToString());
             services.AddSingleton<IConnectionMultiplexer>(
-                c => ConnectionMultiplexer.Connect(ConfigurationOptions.Parse(Configuration.GetValue<string>("REDIS_URL"), true))
+                c => ConnectionMultiplexer.Connect(ConfigurationOptions.Parse(Configuration.GetValue<string>("REDIS_LCL"), true))
             );
             services.AddCors(
                 o => {
