@@ -4,14 +4,20 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Model;
+using Model.Identity;
 
 namespace Domain.Data
 {
     public class StoreContextSeed
     {
-        public static async Task InvokeAsync(StoreContext context, ILoggerFactory loggerFactory)
+        public static async Task InvokeAsync(
+                StoreContext context, 
+                ILoggerFactory loggerFactory,
+                UserManager<AppUser> userManager
+            )
         {
             try
             {
@@ -44,6 +50,25 @@ namespace Domain.Data
                         context.Products.Add(item);
                     }
                     await context.SaveChangesAsync();
+                }
+                if (!userManager.Users.Any())
+                {
+                    var user = new AppUser
+                    {
+                        DisplayName = "Bob",
+                        Email = "bob@test.com",
+                        UserName = "bob@test.com",
+                        Address = new Address
+                        {
+                            FirstName = "Bob",
+                            LastName = "Bobbity",
+                            Street = "10 The Street",
+                            City = "New York",
+                            State = "NY",
+                            ZipCode = "90210"
+                        }
+                    };
+                    await userManager.CreateAsync(user, "Pa$$w0rd");
                 }
             }
             catch (Exception ex)

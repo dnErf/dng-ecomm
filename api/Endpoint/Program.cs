@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Domain;
 using Domain.Data;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Model.Identity;
 
 namespace Endpoint
 {
@@ -25,9 +27,10 @@ namespace Endpoint
                 var loggerFactory = services.GetRequiredService<ILoggerFactory>();
                 try
                 {
+                    var userManager = services.GetRequiredService<UserManager<AppUser>>();
                     var context = services.GetRequiredService<StoreContext>();
                     await context.Database.MigrateAsync();
-                    await StoreContextSeed.InvokeAsync(context, loggerFactory);
+                    await StoreContextSeed.InvokeAsync(context, loggerFactory, userManager);
                 }
                 catch (Exception ex)
                 {

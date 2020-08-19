@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Domain;
 using Domain.Interfaces;
+using Endpoint.Extentions;
 using Endpoint.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -47,6 +48,7 @@ namespace Endpoint
                     });
                 }
             );
+            services.AddIdentityService(Configuration);
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddScoped<IBasketRepo, BasketRepo>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
