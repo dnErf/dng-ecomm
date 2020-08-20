@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Domain;
 using Domain.Interfaces;
+using Domain.Services;
 using Endpoint.Extentions;
 using Endpoint.Helpers;
 using Microsoft.AspNetCore.Builder;
@@ -51,6 +52,7 @@ namespace Endpoint
             services.AddIdentityService(Configuration);
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddScoped<IBasketRepo, BasketRepo>();
+            services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
         }
@@ -71,6 +73,7 @@ namespace Endpoint
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
