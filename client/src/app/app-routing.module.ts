@@ -18,6 +18,14 @@ const routes: Routes = [
     path: 'basket', 
     loadChildren: () => import('./pages/basket/basket.module').then(m => m.BasketModule)
   },
+  {
+    path: 'server-error', 
+    component: ServerErrorComponent
+  },
+  {
+    path: 'not-found', 
+    component: NotFoundComponent, 
+  },
   { 
     path: '**',
     redirectTo: '',

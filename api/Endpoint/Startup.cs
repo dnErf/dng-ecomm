@@ -8,6 +8,8 @@ using Domain.Interfaces;
 using Domain.Services;
 using Endpoint.Extentions;
 using Endpoint.Helpers;
+using Endpoint.Helpers.Error;
+using Endpoint.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -55,6 +57,24 @@ namespace Endpoint
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = actionContext => 
+                {
+                    var errors = actionContext.ModelState
+                        .Where(e => e.Value.Errors.Count > 0)
+                        .SelectMany(x => x.Value.Errors)
+                        .Select(x => x.ErrorMessage).ToArray();
+                    
+                    var errorResponse = new ApiValidationResponse
+                    {
+                        Errors = errors
+                    };
+
+                    return new BadRequestObjectResult(errorResponse);
+                };
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +85,9 @@ namespace Endpoint
                 app.UseDeveloperExceptionPage();
                 app.UseCors("DevPolicy");
             }
+
+            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
 
             // app.UseHttpsRedirection();
 

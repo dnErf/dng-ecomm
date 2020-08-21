@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Interfaces;
 using Endpoint.Extentions;
+using Endpoint.Helpers.Error;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -91,6 +92,11 @@ namespace Endpoint.Controllers
 
         public async Task<ActionResult<UserToReturn>> Register(RegisterDTO registrant)
         {
+            if (CheckEmailExistsAsync(registrant.Email).Result.Value)
+            {
+                return new BadRequestObjectResult(new ApiValidationResponse { Errors = new []{"Email address is in use"} });
+            }
+
             var user = new AppUser
             {
                 DisplayName = registrant.DisplayName,
