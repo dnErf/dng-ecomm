@@ -37,10 +37,10 @@ namespace Endpoint
         {
             services.AddDbContext<StoreContext>(
                 // o => o.UseSqlite(Configuration.GetValue<string>("DATABASE_URL"))
-                o => o.UseNpgsql(Configuration.GetValue<string>("PG_LCL"))
+                o => o.UseNpgsql(Configuration.GetValue<string>("PG_URL"))
             );
             services.AddSingleton<IConnectionMultiplexer>(
-                c => ConnectionMultiplexer.Connect(ConfigurationOptions.Parse(Configuration.GetValue<string>("REDIS_LCL"), true))
+                c => ConnectionMultiplexer.Connect(ConfigurationOptions.Parse(Configuration.GetValue<string>("REDIS_URL"), true))
             );
             services.AddCors(
                 o => {
