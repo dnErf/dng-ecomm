@@ -27,8 +27,10 @@ namespace Endpoint.Extentions
                             ValidateIssuerSigningKey = true,
                             ValidateIssuer = true,
                             ValidateAudience = false,
-                            ValidIssuer = config["Token:Issuer"],
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Token:Key"]))
+                            // ValidIssuer = config["Token:Issuer"],
+                            ValidIssuer = config.GetValue<string>("TOKEN_ISSUER"),
+                            // IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Token:Key"]))
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetValue<string>("TOKEN_KEY")))
                         };
                     }
                 );
