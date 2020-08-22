@@ -35,7 +35,7 @@ namespace Endpoint.Middlewares
 
                 var response = _env.IsDevelopment()
                     ? new ApiException((int) HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace.ToString())
-                    : new ApiException((int) HttpStatusCode.InternalServerError);
+                    : new ApiException((int) HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace.ToString());
 
                 var json = JsonSerializer.Serialize(
                     response, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }
