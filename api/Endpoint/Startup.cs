@@ -86,7 +86,7 @@ namespace Endpoint
                 app.UseCors("DevPolicy");
             }
 
-            // app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseStatusCodePagesWithReExecute("/error/{0}");
 
             // app.UseHttpsRedirection();
