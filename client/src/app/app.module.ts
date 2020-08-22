@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
 import { CarouselModule } from 'ngx-bootstrap/carousel'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -32,6 +33,7 @@ import { ServerErrorComponent } from 'src/app/components/server-error.component'
     NgxSpinnerModule,
     HttpClientModule,
     CarouselModule.forRoot(),
+    BsDropdownModule.forRoot(),
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule

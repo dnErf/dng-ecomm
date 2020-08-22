@@ -90,6 +90,7 @@ namespace Endpoint.Controllers
             };
         }
 
+        [HttpPost("register")]
         public async Task<ActionResult<UserToReturn>> Register(RegisterDTO registrant)
         {
             if (CheckEmailExistsAsync(registrant.Email).Result.Value)

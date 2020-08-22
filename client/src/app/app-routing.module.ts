@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+// ---
 import { BrandsResolver } from './core/resolvers/brands.resolver';
 import { CategoriesResolver } from './core/resolvers/categories.resolver';
 import { HomePage } from './pages/home/home.page';
+import { NotFoundComponent } from './components/not-found.component';
+import { ServerErrorComponent } from './components/server-error.component';
 
 const routes: Routes = [
   { 
@@ -11,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'account', 
-    loadChildren: () => import('./account/account.module').then(mod => mod.AccountModule)
+    loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule)
   },
   { 
     path: 'basket', 
