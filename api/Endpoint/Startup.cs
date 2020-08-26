@@ -37,7 +37,7 @@ namespace Endpoint
         {
             services.AddDbContext<StoreContext>(
                 // o => o.UseSqlite(Configuration.GetValue<string>("DATABASE_URL"))
-                o => o.UseNpgsql(Configuration.GetValue<string>("PG_URL"))
+                o => o.UseNpgsql(Configuration.GetValue<string>("PG_LCL"))
             );
             services.AddSingleton<IConnectionMultiplexer>(
                 c => ConnectionMultiplexer.Connect(ConfigurationOptions.Parse(Configuration.GetValue<string>("REDIS_URL"), true))
@@ -54,6 +54,7 @@ namespace Endpoint
             services.AddIdentityService(Configuration);
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddScoped<IBasketRepo, BasketRepo>();
+            services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();

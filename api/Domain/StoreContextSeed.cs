@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Model;
 using Model.Identity;
+using Model.OrderAggregate;
 
 namespace Domain.Data
 {
@@ -31,6 +32,16 @@ namespace Domain.Data
                     }
                     await context.SaveChangesAsync();
                 }
+                if (!context.DeliveryMethods.Any())
+                {
+                    var deliveryRaw = File.ReadAllText("../Domain/Seeds/delivery.json");
+                    var deliveryData = JsonSerializer.Deserialize<List<DeliveryMethod>>(deliveryRaw);
+                    foreach (var item in deliveryData)
+                    {
+                        context.DeliveryMethods.Add(item);
+                    }
+                    await context.SaveChangesAsync();
+                }
                 if (!context.ProductCategories.Any())
                 {
                     var categoriesRaw = File.ReadAllText("../Domain/Seeds/categories.json");
@@ -51,25 +62,25 @@ namespace Domain.Data
                     }
                     await context.SaveChangesAsync();
                 }
-                if (!userManager.Users.Any())
-                {
-                    var user = new AppUser
-                    {
-                        DisplayName = "Bob",
-                        Email = "bob@test.com",
-                        UserName = "bob@test.com",
-                        Address = new Address
-                        {
-                            FirstName = "Bob",
-                            LastName = "Bobbity",
-                            Street = "10 The Street",
-                            City = "New York",
-                            State = "NY",
-                            ZipCode = "90210"
-                        }
-                    };
-                    await userManager.CreateAsync(user, "Pa$$w0rd");
-                }
+                // if (!userManager.Users.Any())
+                // {
+                //     var user = new AppUser
+                //     {
+                //         DisplayName = "Bob",
+                //         Email = "bob@test.com",
+                //         UserName = "bob@test.com",
+                //         Address = new Address
+                //         {
+                //             FirstName = "Bob",
+                //             LastName = "Bobbity",
+                //             Street = "10 The Street",
+                //             City = "New York",
+                //             State = "NY",
+                //             ZipCode = "90210"
+                //         }
+                //     };
+                //     await userManager.CreateAsync(user, "Pa$$w0rd");
+                // }
             }
             catch (Exception ex)
             {
