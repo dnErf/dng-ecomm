@@ -1,0 +1,24 @@
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <checkout-stepper [linearModeSelected]="false" #checkoutStepper>
+          <cdk-step [label]="'Address'" [completed]="(checkoutForm.get('addressForm')).valid">
+            <checkout-address [checkoutForm]="checkoutForm"></checkout-address>
+          </cdk-step>
+          <cdk-step [label]="'Delivery'" [completed]="(checkoutForm.get('deliveryForm')).valid">
+            <checkout-delivery [checkoutForm]="checkoutForm"></checkout-delivery>
+          </cdk-step>
+          <cdk-step [label]="'Review'">
+            <checkout-review></checkout-review>
+          </cdk-step>
+          <cdk-step [label]="'Payment'">
+          </cdk-step>
+        </checkout-stepper>
+      </div>
+      <div class="col-md-4">
+        <basket-total></basket-total>
+      </div>
+    </div>
+  </div>
+</section>

@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment as env } from 'src/environments/environment';
 import { Basket } from 'src/app/common/class/Basket';
 import { ibasket, ibasketItem, ibasketTotals } from 'src/app/common/interfaces/ibasket';
+import { ideliveryMethod } from 'src/app/common/interfaces/idelivery';
 import { iproduct } from 'src/app/common/interfaces/iproduct';
 
 @Injectable({
@@ -18,6 +19,8 @@ export class BasketService {
 
   $basket = this.basketSrc.asObservable();
   $basketTotal = this.basketTotalSrc.asObservable();
+
+  shipping = 0;
 
   constructor(private http:HttpClient) { }
 
@@ -112,6 +115,11 @@ export class BasketService {
         console.log(err);
       }
     )
+  }
+
+  setShippingPrice(deliveryMethod:ideliveryMethod) {
+    this.shipping = deliveryMethod.price;
+    this.calculateTotals();
   }
 
   private addOrUpdateItem(items:ibasketItem[], itemToAdd:ibasketItem, quantity:number):ibasketItem[] {

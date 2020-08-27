@@ -40,7 +40,7 @@ namespace Endpoint
                 o => o.UseNpgsql(Configuration.GetValue<string>("PG_LCL"))
             );
             services.AddSingleton<IConnectionMultiplexer>(
-                c => ConnectionMultiplexer.Connect(ConfigurationOptions.Parse(Configuration.GetValue<string>("REDIS_URL"), true))
+                c => ConnectionMultiplexer.Connect(ConfigurationOptions.Parse(Configuration.GetValue<string>("REDIS_LCL"), true))
             );
             services.AddCors(
                 o => {

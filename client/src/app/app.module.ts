@@ -13,6 +13,7 @@ import { BrandsResolver } from 'src/app/core/resolvers/brands.resolver';
 import { CategoriesResolver } from 'src/app/core/resolvers/categories.resolver';
 import { ErrorInterceptor } from 'src/app/core/interceptors/error.interceptor';
 import { HomePage } from 'src/app/pages/home/home.page';
+import { JwtInterceptor } from 'src/app/core/interceptors/jwt.interceptor';
 import { LoadingInterceptor } from 'src/app/core/interceptors/loading.interceptor';
 import { NotFoundComponent } from 'src/app/components/not-found.component';
 import { ProductService } from 'src/app/core/services/product.service';
@@ -40,6 +41,7 @@ import { ServerErrorComponent } from 'src/app/components/server-error.component'
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     BrandsResolver,
     CategoriesResolver,

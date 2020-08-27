@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef, Input, Self } from '@angular/
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
-  selector: 'account-text',
-  templateUrl: './account-text.component.html'
+  selector: 'app-text',
+  templateUrl: './app-text.component.html'
 })
-export class AccountTextComponent implements OnInit, ControlValueAccessor {
+export class AppTextComponent implements OnInit, ControlValueAccessor {
 
   @ViewChild('input', { static: true }) input: ElementRef;
   @Input() type = 'text';

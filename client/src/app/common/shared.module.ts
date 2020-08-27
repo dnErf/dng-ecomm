@@ -1,23 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 // ---
-import { PagerComponent } from 'src/app/components/pager.component';
-import { PagerHeaderComponent } from 'src/app/components/pager-header.component';
+import { AppTextComponent } from 'src/app/components/app-text.component';
+import { BasketSummaryComponent } from 'src/app/components/basket-summary.component';
 
 @NgModule({
   declarations: [
-    PagerComponent,
-    PagerHeaderComponent
+    AppTextComponent,
+    BasketSummaryComponent
   ],
   imports: [
     CommonModule,
-    PaginationModule.forRoot()
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports: [
-    PaginationModule,
-    PagerComponent,
-    PagerHeaderComponent
+    AppTextComponent,
+    BasketSummaryComponent,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,38 @@
+<ng-container *ngIf="$basket | async">
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th [class.bg-light]="isBasket">Product</th>
+          <th [class.bg-light]="isBasket">Price</th>
+          <th [class.bg-light]="isBasket">Quantity</th>
+          <th [class.bg-light]="isBasket">Total</th>
+          <th *ngIf="isBasket">-</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of ($basket | async).items">
+          <th>
+            <div>
+              <div>
+                <a routerLink="/shop/{{ item.id }}">{{ item.productName }}</a>
+              </div>
+            </div>
+          </th>
+          <td>{{ item.price | currency }}</td>
+          <td class="align-middle">
+            <div class="d-flex align-items-center" [class.justify-content-center]="!isBasket">
+              <i class="fa fa-minus-circle mr-2 circle-q" (click)="decrementQuantity(item)" *ngIf="isBasket"></i>
+              <span>{{ item.quantity }}</span>
+              <i class="fa fa-plus-circle mx-2 circle-q" (click)="incrementQuantity(item)" *ngIf="isBasket"></i>
+            </div>
+          </td>
+          <td>{{ item.price * item.quantity | currency }}</td>
+          <td *ngIf="isBasket">
+            <i class="fa fa-trash" (click)="removeBasketItem(item)" style="cursor: pointer;"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-container>

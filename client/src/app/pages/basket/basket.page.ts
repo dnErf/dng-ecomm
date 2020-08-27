@@ -19,14 +19,17 @@ export class BasketPage implements OnInit {
   }
 
   decrementQuantity(item:ibasketItem) {
+    console.log('decrement');
     this.servBasket.decrementItemQuantity(item);
   }
 
   incrementQuantity(item:ibasketItem) {
+    console.log('increment');
     this.servBasket.incrementItemQuantity(item);
   }
 
   removeBasketItem(item:ibasketItem) {
+    console.log('remove');
     this.servBasket.removeItemFromBasket(item);
   }
 

@@ -1,0 +1,42 @@
+<div class="mt-4" [formGroup]="checkoutForm">
+  <div class="d-flex justify-content-between align-items-center">
+      <h4>Shipping address</h4>
+      <!--  
+      <button 
+          (click)="saveUserAddress()" 
+          [disabled]="!checkoutForm.get('addressForm').valid || !checkoutForm.get('addressForm').dirty"
+          class="btn btn-primary-success mb-3">
+          Save as default address
+      </button>
+      -->
+  </div>
+  <div class="row" formGroupName="addressForm">
+      <div class="form-group col-6">
+          <app-text [label]="'First Name'" formControlName="firstName"></app-text>
+      </div>
+      <div class="form-group col-6">
+          <app-text [label]="'Last Name'" formControlName="lastName"></app-text>
+      </div>
+      <div class="form-group col-6">
+          <app-text [label]="'Street'" formControlName="street"></app-text>
+      </div>
+      <div class="form-group col-6">
+          <app-text [label]="'City'" formControlName="city"></app-text>
+      </div>
+      <div class="form-group col-6">
+          <app-text [label]="'State'" formControlName="state"></app-text>
+      </div>
+      <div class="form-group col-6">
+          <app-text [label]="'Zip Code'" formControlName="zipcode"></app-text>
+      </div>
+  </div>
+</div>
+
+<div class="float-none d-flex justify-content-between flex-column flex-lg-row mb-5">
+  <button class="btn btn-primary" routerLink="/basket">
+      <i class="fa fa-angle-left"></i> Back to Basket
+  </button>
+  <button class="btn btn-primary" cdkStepperNext>
+      Go to Delivery <i class="fa fa-angle-right"></i> 
+  </button>
+</div>
