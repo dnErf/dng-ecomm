@@ -5,6 +5,7 @@ import { BehaviorSubject, ReplaySubject, of as ObservableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 // ---
 import { environment as env } from 'src/environments/environment';
+import { iaddress } from 'src/app/common/interfaces/iaddress';
 import { iuser } from 'src/app/common/interfaces/iuser';
 
 @Injectable({
@@ -74,6 +75,14 @@ export class AccountService {
           }
         })
       )
+  }
+
+  userAddressFetch() {
+    return this.http.get<iaddress>(`${env.baseUrl}/account/address`);
+  }
+
+  userAddressUpdate(address:iaddress) {
+    return this.http.put<iaddress>(`${env.baseUrl}/account/address`, address);
   }
 
 }

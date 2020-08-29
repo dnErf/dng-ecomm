@@ -24,6 +24,52 @@ export class BasketService {
 
   constructor(private http:HttpClient) { }
 
+  addItemToBasket(item:iproduct, quantity = 1) {
+    let itemToAdd:ibasketItem = {
+      id: item.id,
+      productName: item.name,
+      price: item.price,
+      pictureUrl: item.pictureUrl,
+      brand: item.productBrand,
+      category: item.productCategory,
+      quantity
+    }
+    let basket = this.getCurrentBasketValue() ?? new Basket();
+    // = if using angular 8 below
+    // if (basket === null) {
+    //   basket = new Basket();
+    //   localStorage.setItem('basket_id', basket.id);
+    // }
+    localStorage.setItem('basket_id', basket.id);
+    basket.items = this.addOrUpdateItem(basket.items, itemToAdd, quantity);
+    this.setBasket(basket);
+  }
+
+  decrementItemQuantity(item:ibasketItem) {
+    let basket = this.getCurrentBasketValue();
+    let foundItemIndex = basket.items.findIndex((a) => a.id === item.id);
+    if (basket.items[foundItemIndex].quantity > 1) {
+      basket.items[foundItemIndex].quantity -= 1;
+      this.setBasket(basket);
+    }
+    else {
+      this.removeItemFromBasket(item);
+    }
+  }
+
+  deleteLocalBasket(id: string) {
+    this.basketSrc.next(null);
+    this.basketTotalSrc.next(null);
+    localStorage.removeItem('basket_id');
+  }
+
+  incrementItemQuantity(item:ibasketItem) {
+    let basket = this.getCurrentBasketValue();
+    let foundItemIndex = basket.items.findIndex((a) => a.id === item.id);
+    basket.items[foundItemIndex].quantity += 1;
+    this.setBasket(basket);
+  }
+
   getCurrentBasketValue() {
     return this.basketSrc.value;
   }
@@ -49,46 +95,6 @@ export class BasketService {
           console.log(err);
         }
       )
-  }
-
-  addItemToBasket(item:iproduct, quantity = 1) {
-    let itemToAdd:ibasketItem = {
-      id: item.id,
-      productName: item.name,
-      price: item.price,
-      pictureUrl: item.pictureUrl,
-      brand: item.productBrand,
-      category: item.productCategory,
-      quantity
-    }
-    let basket = this.getCurrentBasketValue() ?? new Basket();
-    // = if using angular 8 below
-    // if (basket === null) {
-    //   basket = new Basket();
-    //   localStorage.setItem('basket_id', basket.id);
-    // }
-    localStorage.setItem('basket_id', basket.id);
-    basket.items = this.addOrUpdateItem(basket.items, itemToAdd, quantity);
-    this.setBasket(basket);
-  }
-
-  incrementItemQuantity(item:ibasketItem) {
-    let basket = this.getCurrentBasketValue();
-    let foundItemIndex = basket.items.findIndex((a) => a.id === item.id);
-    basket.items[foundItemIndex].quantity += 1;
-    this.setBasket(basket);
-  }
-
-  decrementItemQuantity(item:ibasketItem) {
-    let basket = this.getCurrentBasketValue();
-    let foundItemIndex = basket.items.findIndex((a) => a.id === item.id);
-    if (basket.items[foundItemIndex].quantity > 1) {
-      basket.items[foundItemIndex].quantity -= 1;
-      this.setBasket(basket);
-    }
-    else {
-      this.removeItemFromBasket(item);
-    }
   }
 
   removeItemFromBasket(item:ibasketItem) {
@@ -135,8 +141,8 @@ export class BasketService {
   }
 
   private calculateTotals() {
-    let shipping = 0;
     let basket = this.getCurrentBasketValue();
+    let shipping = this.shipping;
     let subtotal = basket.items.reduce((a, b) => (b.price * b.quantity) + a, 0);
     let total = subtotal + shipping;
     this.basketTotalSrc.next({ shipping, total, subtotal });

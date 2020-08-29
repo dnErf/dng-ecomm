@@ -12,10 +12,11 @@ export class CheckoutPage implements OnInit {
 
   checkoutForm:FormGroup
 
-  constructor (private accountService:AccountService, private fb:FormBuilder) { }
+  constructor (private servAccount:AccountService, private fb:FormBuilder) { }
 
   ngOnInit() {
     this.createCheckoutForm();
+    this.getAddressFormValues();
   }
 
   createCheckoutForm() {
@@ -32,6 +33,20 @@ export class CheckoutPage implements OnInit {
         deliveryMethod: [null, Validators.required]
       }),
     });
+  }
+
+  getAddressFormValues() {
+    this.servAccount.userAddressFetch()
+      .subscribe(
+        (address) => {
+          if (address) {
+            this.checkoutForm.get('addressForm').patchValue(address);
+          }
+        }, 
+        (err) => {
+          console.log(err);
+        }
+      );
   }
 
 }

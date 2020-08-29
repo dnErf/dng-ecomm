@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Interfaces;
 using Endpoint.Helpers.Error;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Model.Dtos;
 using Model.OrderAggregate;
 
 namespace Endpoint.Controllers
 {
+    [Authorize]
     public class OrdersController : ApiController
     {
         private readonly IMapper _mapper;

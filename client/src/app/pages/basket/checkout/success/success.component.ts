@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 // ---
-import { AccountService } from 'src/app/core/services/account.service'
+import { iorder } from 'src/app/common/interfaces/iorder';
 
 @Component({
   selector: 'checkout-success',
   templateUrl: './success.component.html'
 })
-export class SuccessComponent implements OnInit {
+export class SuccessComponent {
 
-  checkoutForm:FormGroup
+  order:iorder;
 
-  constructor (private accountService:AccountService) { }
-
-  ngOnInit() {
+  constructor (private router:Router) { 
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation && navigation.extras && navigation.extras.state;
+    if (state) {
+      this.order = state as iorder;
+    }
   }
 
 }

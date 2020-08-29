@@ -37,7 +37,10 @@ import { SuccessComponent } from  'src/app/pages/basket/checkout/success/success
       { 
         path: 'checkout',
         canActivate: [AuthGuard],
-        component: CheckoutPage
+        component: CheckoutPage,
+        children: [
+          { path: 'success', component: SuccessComponent }
+        ]
       }
     ]),
   ],
