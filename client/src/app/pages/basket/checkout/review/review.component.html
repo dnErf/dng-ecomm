@@ -1,5 +1,5 @@
 <div class="mt-4">
-  <basket-summary [isBasket]=false></basket-summary>
+  <basket-summary [isBasket]=false [items]="($basket | async).items"></basket-summary>
 </div>
 
 <div class="float-none d-flex justify-content-between flex-column flex-lg-row mb-5">

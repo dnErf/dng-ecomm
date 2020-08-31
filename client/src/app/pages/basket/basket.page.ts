@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 // ---
-import { BasketService } from 'src/app/core/services/basket.service'
-import { ibasket, ibasketItem } from 'src/app/common/interfaces/ibasket';
+import { BasketService } from 'src/app/core/services/basket.service';
+import { ibasket, ibasketItem, ibasketTotals } from 'src/app/common/interfaces/ibasket';
 
 @Component({
   selector: 'app-basket',
@@ -11,25 +11,24 @@ import { ibasket, ibasketItem } from 'src/app/common/interfaces/ibasket';
 export class BasketPage implements OnInit {
 
   $basket:Observable<ibasket>;
+  $basketTotal:Observable<ibasketTotals>;
 
   constructor (private servBasket:BasketService) { }
 
   ngOnInit() {
     this.$basket = this.servBasket.$basket;
+    this.$basketTotal = this.servBasket.$basketTotal;
   }
 
   decrementQuantity(item:ibasketItem) {
-    console.log('decrement');
     this.servBasket.decrementItemQuantity(item);
   }
 
   incrementQuantity(item:ibasketItem) {
-    console.log('increment');
     this.servBasket.incrementItemQuantity(item);
   }
 
   removeBasketItem(item:ibasketItem) {
-    console.log('remove');
     this.servBasket.removeItemFromBasket(item);
   }
 

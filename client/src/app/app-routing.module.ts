@@ -25,6 +25,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/shop/shop.module').then(m => m.ShopModule), 
     resolve: { brands: BrandsResolver, categories: CategoriesResolver }
   },
+  { 
+    path: 'orders', 
+    loadChildren: () => import('./pages/orders/orders.module').then(m => m.OrdersModule)
+  },
   {
     path: 'server-error', 
     component: ServerErrorComponent

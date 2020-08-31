@@ -5,11 +5,13 @@ import { RouterModule } from '@angular/router';
 // ---
 import { AppTextComponent } from 'src/app/components/app-text.component';
 import { BasketSummaryComponent } from 'src/app/components/basket-summary.component';
+import { BasketTotalComponent } from 'src/app/components/basket-total.component';
 
 @NgModule({
   declarations: [
     AppTextComponent,
-    BasketSummaryComponent
+    BasketSummaryComponent,
+    BasketTotalComponent
   ],
   imports: [
     CommonModule,
@@ -20,6 +22,7 @@ import { BasketSummaryComponent } from 'src/app/components/basket-summary.compon
   exports: [
     AppTextComponent,
     BasketSummaryComponent,
+    BasketTotalComponent,
     FormsModule,
     ReactiveFormsModule
   ]

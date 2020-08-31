@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 // ---
+import { ibasket } from 'src/app/common/interfaces/ibasket';
+import { BasketService } from 'src/app/core/services/basket.service'
 
 @Component({
   selector: 'checkout-review',
@@ -9,9 +11,12 @@ import { Observable } from 'rxjs';
 })
 export class ReviewComponent implements OnInit {
 
-  constructor () { }
+  $basket:Observable<ibasket>;
+
+  constructor (private servBasket:BasketService) { }
 
   ngOnInit() {
+    this.$basket = this.servBasket.$basket;
   }
 
 }

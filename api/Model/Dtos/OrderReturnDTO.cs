@@ -16,5 +16,6 @@ namespace Model.Dtos
         public double SubTotal { get; set; }
         public double Total { get; set; }
         public string Status { get; set; }
+        public string PaymentIntentId { get; set; }
     }
 }

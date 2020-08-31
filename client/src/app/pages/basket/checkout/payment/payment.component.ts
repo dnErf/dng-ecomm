@@ -25,16 +25,16 @@ export class PaymentComponent {
   ) { }
 
   submitOrder() {
-    const basket = this.servBasket.getCurrentBasketValue();
-    const orderToCreate = this.getOrderToCreate(basket);
-
-    this.servCheckout.creatOrder(orderToCreate)
+    let basket = this.servBasket.getCurrentBasketValue();
+    let orderToCreate = this.getOrderToCreate(basket);
+    
+    this.servCheckout.createOrder(orderToCreate)
       .subscribe(
         (order:iorder) => {
           this.toastr.success('Order created successfully');
           this.servBasket.deleteLocalBasket(basket.id);
-          const navigationExtras:NavigationExtras = { state: order };
-          this.router.navigate(['checkout/success'], navigationExtras);
+          // const navigationExtras:NavigationExtras = { state: order };
+          this.router.navigate(['checkout/success'], { state: order });
         }, 
         (err) => {
           this.toastr.error(err.message);

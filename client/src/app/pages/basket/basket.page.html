@@ -13,6 +13,7 @@
             (decrement)="decrementQuantity($event)"
             (increment)="incrementQuantity($event)"
             (remove)="removeBasketItem($event)"
+            [items]="basket.items"
           >
           </basket-summary>
         </div>
@@ -20,7 +21,12 @@
       <div class="row">
         <div class="col-6 offset-6">
           <!-- order totals -->
-          <basket-total></basket-total>
+          <basket-total 
+            *ngIf="$basketTotal | async as basketTotal"
+            [shippingPrice]="basketTotal.shipping"
+            [subtotal]="basketTotal.subtotal"
+            [total]="basketTotal.total"
+          ></basket-total>
           <div class="d-flex justify-content-end">
           <a class="btn btn-primary text-white py-2 btn-sm" routerLink="/basket/checkout">
             Checkout

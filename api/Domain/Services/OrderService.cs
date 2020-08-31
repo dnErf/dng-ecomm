@@ -24,7 +24,7 @@ namespace Domain.Services
             var basket = await _basketRepo.GetBasketAsync(basketId);
 
             var items = new List<OrderItem>();
-            foreach (var item in items)
+            foreach (var item in basket.Items)
             {
                 var productItem = await _uow.Repo<Product>().GetByIdAsync(item.Id);
                 var itemOrdered = new ItemOrdered(productItem.Id, productItem.Name, productItem.PictureUrl);

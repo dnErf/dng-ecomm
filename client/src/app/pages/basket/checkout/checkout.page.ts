@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 // ---
-import { AccountService } from 'src/app/core/services/account.service'
+import { ibasketTotals } from 'src/app/common/interfaces/ibasket';
+import { BasketService } from 'src/app/core/services/basket.service';
+import { AccountService } from 'src/app/core/services/account.service';
 
 @Component({
   selector: 'basket-checkout',
@@ -10,13 +12,19 @@ import { AccountService } from 'src/app/core/services/account.service'
 })
 export class CheckoutPage implements OnInit {
 
-  checkoutForm:FormGroup
+  checkoutForm:FormGroup;
+  $basketTotal:Observable<ibasketTotals>;
 
-  constructor (private servAccount:AccountService, private fb:FormBuilder) { }
+  constructor (
+    private servAccount:AccountService, 
+    private servBasket:BasketService,
+    private fb:FormBuilder
+  ) { }
 
   ngOnInit() {
     this.createCheckoutForm();
     this.getAddressFormValues();
+    this.$basketTotal = this.servBasket.$basketTotal;
   }
 
   createCheckoutForm() {
@@ -32,6 +40,9 @@ export class CheckoutPage implements OnInit {
       deliveryForm: this.fb.group({
         deliveryMethod: [null, Validators.required]
       }),
+      paymentForm: this.fb.group({
+        nameOnCard: [null, Validators.required]
+      })
     });
   }
 

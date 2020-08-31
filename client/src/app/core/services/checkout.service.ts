@@ -14,7 +14,7 @@ export class CheckoutService {
     private http:HttpClient
   ) { }
 
-  creatOrder(order:iorderToCreate) {
+  createOrder(order:iorderToCreate) {
     return this.http.post(`${ env.baseUrl }/orders`, order);
   }
 

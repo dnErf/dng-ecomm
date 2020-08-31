@@ -6,10 +6,9 @@ import { RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { BasketPage } from 'src/app/pages/basket/basket.page';
 import { CheckoutPage } from  'src/app/pages/basket/checkout/checkout.page';
-import { SharedModule } from 'src/app/common/shared.module'
+import { SharedModule } from 'src/app/common/shared.module';
 // ---
 import { AddressComponent } from  'src/app/pages/basket/checkout/address/address.component';
-import { BasketTotalComponent } from 'src/app/components/basket-total.component';
 import { DeliveryComponent } from  'src/app/pages/basket/checkout/delivery/delivery.component';
 import { PaymentComponent } from  'src/app/pages/basket/checkout/payment/payment.component';
 import { ReviewComponent } from  'src/app/pages/basket/checkout/review/review.component';
@@ -21,7 +20,6 @@ import { SuccessComponent } from  'src/app/pages/basket/checkout/success/success
     BasketPage,
     CheckoutPage,
     AddressComponent,
-    BasketTotalComponent,
     DeliveryComponent,
     PaymentComponent,
     ReviewComponent,

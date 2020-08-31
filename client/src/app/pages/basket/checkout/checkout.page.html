@@ -13,11 +13,17 @@
             <checkout-review></checkout-review>
           </cdk-step>
           <cdk-step [label]="'Payment'">
+            <checkout-payment [checkoutForm]="checkoutForm"></checkout-payment>
           </cdk-step>
         </checkout-stepper>
       </div>
       <div class="col-md-4">
-        <basket-total></basket-total>
+        <basket-total 
+          *ngIf="$basketTotal | async as basketTotal"
+          [shippingPrice]="basketTotal.shipping"
+          [subtotal]="basketTotal.subtotal"
+          [total]="basketTotal.total"
+        ></basket-total>
       </div>
     </div>
   </div>

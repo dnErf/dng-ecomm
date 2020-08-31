@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 // ---
 import { BasketService } from 'src/app/core/services/basket.service'
 import { ibasket, ibasketItem } from 'src/app/common/interfaces/ibasket';
+import { iorderItem } from 'src/app/common/interfaces/iorder';
 
 @Component({
   selector: 'basket-summary',
@@ -17,6 +18,8 @@ export class BasketSummaryComponent implements OnInit {
   @Output() remove:EventEmitter<ibasketItem> = new EventEmitter<ibasketItem>();
 
   @Input() isBasket = true;
+  @Input() isOrder = false;
+  @Input() items:ibasketItem[]|iorderItem[] = [];
 
   constructor (private servBasket:BasketService) { }
 
