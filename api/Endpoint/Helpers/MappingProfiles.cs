@@ -15,7 +15,7 @@ namespace Endpoint.Helpers
                 .ForMember(d => d.ProductCategory, o => o.MapFrom(s => s.ProductCategory.Name))
                 .ForMember(d => d.PictureUrl, o => o.MapFrom<ProductUrlResolver>());
             CreateMap<Model.Identity.Address, AddressDTO>().ReverseMap();
-            CreateMap<BasketToReturn, CustomerBasket>();
+            CreateMap<BasketReturnDTO, CustomerBasket>();
             CreateMap<ItemToReturn, BasketItem>();
             CreateMap<AddressDTO, Model.OrderAggregate.Address>();
             CreateMap<Order, OrderReturnDTO>()

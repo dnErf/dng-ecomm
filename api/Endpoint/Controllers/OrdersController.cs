@@ -16,19 +16,19 @@ namespace Endpoint.Controllers
     public class OrdersController : ApiController
     {
         private readonly IMapper _mapper;
-        private readonly IOrderService _orderService;
+        private readonly IOrderService _servOrder;
 
-        public OrdersController(IMapper mapper, IOrderService orderService)
+        public OrdersController(IMapper mapper, IOrderService servOrder)
         {
             _mapper = mapper;
-            _orderService = orderService;
+            _servOrder = servOrder;
         }
         [HttpPost]
         public async Task<ActionResult<Order>> CreateOrder(OrderDTO orderDTO)
         {
             var email = HttpContext.User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
             var address = _mapper.Map<AddressDTO, Address>(orderDTO.ShipToAddress);
-            var order = await _orderService.CreateOrderAsync(email, orderDTO.DeliveryMethodId, orderDTO.BasketId, address);
+            var order = await _servOrder.CreateOrderAsync(email, orderDTO.DeliveryMethodId, orderDTO.BasketId, address);
 
             if (order == null)
                 return BadRequest(new ApiResponse(400, "Problem creating order"));
@@ -39,7 +39,7 @@ namespace Endpoint.Controllers
         public async Task<ActionResult<IList<OrderDTO>>> GetOrdersForUser()
         {
             var email = HttpContext.User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
-            var orders = await _orderService.GetOrdersForUserAsync(email);
+            var orders = await _servOrder.GetOrdersForUserAsync(email);
 
             return Ok(
                 _mapper.Map<IList<Order>, IList<OrderReturnDTO>>(orders)
@@ -49,7 +49,7 @@ namespace Endpoint.Controllers
         public async Task<ActionResult<OrderReturnDTO>> GetOrderByIdForUser(int id)
         {
             var email = HttpContext.User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
-            var order = await _orderService.GetOrderByIdAsync(id, email);
+            var order = await _servOrder.GetOrderByIdAsync(id, email);
 
             if (order == null)
                 return NotFound(new ApiResponse(404));
@@ -59,7 +59,7 @@ namespace Endpoint.Controllers
         [HttpGet("deliveryMethods")]
         public async Task<ActionResult<IList<DeliveryMethod>>> GetDeliveryMethods()
         {
-            return Ok(await _orderService.GetDeliveryMethodsAsync());
+            return Ok(await _servOrder.GetDeliveryMethodsAsync());
         }
     }
 }

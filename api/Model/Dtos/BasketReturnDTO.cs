@@ -1,20 +1,13 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace Model
+namespace Model.Dtos
 {
-    public class CustomerBasket
+    public class BasketReturnDTO
     {
-        public CustomerBasket()
-        {
-        }
-
-        public CustomerBasket(string id)
-        {
-            Id = id;
-        }
-
+        [Required]
         public string Id { get; set; }
-        public List<BasketItem> Items { get; set; } = new List<BasketItem>();
+        public List<ItemToReturn> Items { get; set; }
         public int? DeliveryMethodId { get; set; }
         public string ClientSecret { get; set; }
         public string PaymentIntentId { get; set; }

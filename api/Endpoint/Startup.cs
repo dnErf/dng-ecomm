@@ -55,6 +55,7 @@ namespace Endpoint
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddScoped<IBasketRepo, BasketRepo>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();

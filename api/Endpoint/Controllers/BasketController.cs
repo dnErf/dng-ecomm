@@ -24,9 +24,9 @@ namespace Endpoint.Controllers
             return Ok(basket ?? new CustomerBasket(id));
         }
         [HttpPost]
-        public async Task<ActionResult<CustomerBasket>> UpdateBasket(BasketToReturn basket)
+        public async Task<ActionResult<CustomerBasket>> UpdateBasket(BasketReturnDTO basket)
         {
-            var customerBasket = _mapper.Map<BasketToReturn, CustomerBasket>(basket);
+            var customerBasket = _mapper.Map<BasketReturnDTO, CustomerBasket>(basket);
             var updatedBasket = await _basketRepo.UpdateBasketAsync(customerBasket);
             return Ok(updatedBasket);
         }
