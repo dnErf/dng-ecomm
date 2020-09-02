@@ -11,6 +11,10 @@ export interface ibasketItem {
 export interface ibasket {
   id:string;
   items:ibasketItem[];
+  clientSecret?: string;
+  paymentIntentId?:string;
+  deliveryMethodId?:number;
+  shippingPrice?:number;
 }
 
 export interface ibasketTotals {

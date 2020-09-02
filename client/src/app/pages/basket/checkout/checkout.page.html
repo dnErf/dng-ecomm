@@ -10,7 +10,7 @@
             <checkout-delivery [checkoutForm]="checkoutForm"></checkout-delivery>
           </cdk-step>
           <cdk-step [label]="'Review'">
-            <checkout-review></checkout-review>
+            <checkout-review [checkoutStepper]="checkoutStepper"></checkout-review>
           </cdk-step>
           <cdk-step [label]="'Payment'">
             <checkout-payment [checkoutForm]="checkoutForm"></checkout-payment>

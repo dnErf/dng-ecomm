@@ -51,4 +51,3 @@ import { ServerErrorComponent } from 'src/app/components/server-error.component'
 })
 export class AppModule { }
 
-// npm i --save ngx-toastr
