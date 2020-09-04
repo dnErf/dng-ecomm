@@ -27,7 +27,7 @@
           <app-text [label]="'State'" formControlName="state"></app-text>
       </div>
       <div class="form-group col-6">
-          <app-text [label]="'Zip Code'" formControlName="zipcode"></app-text>
+          <app-text [label]="'Zip Code'" formControlName="zipCode"></app-text>
       </div>
   </div>
 </div>
@@ -36,7 +36,11 @@
   <button class="btn btn-primary" routerLink="/basket">
       <i class="fa fa-angle-left"></i> Back to Basket
   </button>
-  <button class="btn btn-primary" cdkStepperNext>
-      Go to Delivery <i class="fa fa-angle-right"></i> 
+  <button 
+    class="btn btn-primary" 
+    [disabled]="checkoutForm.get('addressForm').invalid" 
+    cdkStepperNext
+  >
+    Go to Delivery <i class="fa fa-angle-right"></i> 
   </button>
 </div>

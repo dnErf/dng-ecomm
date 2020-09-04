@@ -18,12 +18,13 @@ export class AddressComponent {
   saveUserAddress() {
     this.servAccount.userAddressUpdate(this.checkoutForm.get('addressForm').value)
       .subscribe(
-        () => {
+        (address) => {
+          console.log(address);
           this.toastr.success('Address saved');
+          this.checkoutForm.get('addressForm').reset(address);
         }, 
         (err) => {
           this.toastr.error(err.message);
-          console.log(err);
         }
       );
   }

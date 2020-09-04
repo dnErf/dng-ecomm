@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <checkout-stepper [linearModeSelected]="false" #checkoutStepper>
+        <checkout-stepper [linearModeSelected]="true" #checkoutStepper>
           <cdk-step [label]="'Address'" [completed]="(checkoutForm.get('addressForm')).valid">
             <checkout-address [checkoutForm]="checkoutForm"></checkout-address>
           </cdk-step>

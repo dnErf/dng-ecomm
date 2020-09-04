@@ -12,13 +12,15 @@ namespace Model.OrderAggregate
             string buyerEmail,
             Address shipToAddress,
             DeliveryMethod deliveryMethod,
-            double subtotal
+            double subtotal,
+            string paymentIntentId
         ) { 
             BuyerEmail = buyerEmail;
             ShipToAddress = shipToAddress;
             DeliveryMethod = deliveryMethod;
             OrderItems = orderItems;
             SubTotal = subtotal;
+            PaymentIntentId = paymentIntentId;
         }
         public string BuyerEmail { get; set; }
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;

@@ -23,13 +23,13 @@ namespace Endpoint.Controllers
             _logger = logger;
         }
         [Authorize]
-        [HttpPost("{basketId")]
+        [HttpPost("{basketId}")]
         public async Task<ActionResult<CustomerBasket>> CreateOrUpdatePaymentIntent(string basketId)
         {
             var basket = await _servPayment.CreateOrUpdatePaymentIntent(basketId);
 
             if (basket == null)
-                return BadRequest(new ApiResponse(400, ""));
+                return BadRequest(new ApiResponse(400, "there is a problem with your basket"));
 
             return basket;
         }

@@ -11,11 +11,13 @@ namespace Domain.Services
     public class OrderService : IOrderService
     {
         private readonly IBasketRepo _basketRepo;
+        private readonly IPaymentService _servPayment;
         private readonly IUnitOfWork _uow;
 
-        public OrderService(IBasketRepo basketRepo, IUnitOfWork uow)
+        public OrderService(IBasketRepo basketRepo, IUnitOfWork uow, IPaymentService servPayment)
         {
             _basketRepo = basketRepo;
+            _servPayment = servPayment;
             _uow = uow;
         }
 
@@ -34,8 +36,18 @@ namespace Domain.Services
 
             var deliveryMethod = await _uow.Repo<DeliveryMethod>().GetByIdAsync(deliveryMethodId);
             var subtotal = items.Sum(i => i.Price * i.Quantity);
-            var order = new Order(items, buyerEmail, shippingAddress, deliveryMethod, subtotal);
+
+            // check to see if order exists
+            var frame = new OrderByPaymentIntentIdFrame(basket.PaymentIntentId);
+            var existingOrder = await _uow.Repo<Order>().GetWithFrame(frame);
+
+            if (existingOrder != null)
+            {
+                _uow.Repo<Order>().Delete(existingOrder);
+                await _servPayment.CreateOrUpdatePaymentIntent(basket.PaymentIntentId);
+            }
             
+            var order = new Order(items, buyerEmail, shippingAddress, deliveryMethod, subtotal, basket.PaymentIntentId);
             _uow.Repo<Order>().Add(order);
 
             if (await _uow.Complete() <= 0) 

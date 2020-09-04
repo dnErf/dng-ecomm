@@ -11,11 +11,13 @@ export class LoadingInterceptor implements HttpInterceptor {
   constructor(private servLoading:LoadingService) { }
 
   intercept(req:HttpRequest<any>, next:HttpHandler):Observable<HttpEvent<any>> {
-    if (!req.url.includes('emailexists')) {
+    if (!req.url.includes('emailexists') 
+      || !(req.method === 'POST' && req.url.includes('orders'))
+    ) {
       this.servLoading.busy();
     }
     return next.handle(req).pipe(
-      delay(50),
+      delay(10),
       finalize(() => {
         this.servLoading.idle();
       })
