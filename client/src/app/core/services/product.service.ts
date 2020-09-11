@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of as ObservableOf } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 // ---
 import { environment as env } from 'src/environments/environment';
@@ -15,6 +15,8 @@ import { ProductParams } from 'src/app/common/class/ProductParams';
   providedIn: 'root'
 })
 export class ProductService {
+
+  products:iproduct[] = [];
 
   constructor(private http:HttpClient) { }
 
@@ -47,6 +49,12 @@ export class ProductService {
   }
 
   getProduct(id):Observable<iproduct> {
+    let product = this.products.find(p => p.id === id);
+
+    if (product) {
+      return ObservableOf(product);
+    }
+
     return this.http.get<iproduct>(`${env.baseUrl}/products/${id}`)
   }
 

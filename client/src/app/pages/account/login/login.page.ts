@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 // ---
+import { environment as env } from 'src/environments/environment';
 import { AccountService } from 'src/app/core/services/account.service';
 
 @Component({
@@ -17,7 +19,8 @@ export class LoginPage implements OnInit {
   constructor (
     private router:Router,
     private activatedRoute:ActivatedRoute,
-    private servAccount:AccountService
+    private servAccount:AccountService,
+    private toastr:ToastrService
   ) { }
 
   ngOnInit() {
@@ -34,6 +37,10 @@ export class LoginPage implements OnInit {
     });
   }
 
+  logAsGuest() {
+    this.loginForm.setValue({ email: env.GUEST_EM, password: env.GUEST_PW})
+  }
+
   onSubmit() {
     this.servAccount.login(this.loginForm.value)
       .subscribe(
@@ -41,7 +48,8 @@ export class LoginPage implements OnInit {
           this.router.navigateByUrl(this.returnUrl);
         },
         (err) => {
-          console.log(err);
+          console.error(err);
+          this.toastr.error('oops, something went wrong.');
         }
       )
   }

@@ -88,6 +88,10 @@ export class PaymentComponent implements AfterViewInit, OnDestroy {
 
     this.toggleLoading();
 
+    if (this.cardNumber !== '4242424242424242' || this.cardNumber !== '4242 4242 4242 4242') {
+      this.toastr.error('only accepting test card at the moment');
+    }
+
     try {
       let basket = this.servBasket.getCurrentBasketValue();
       let createdOrder = await this.createOrder(this.getOrderToCreate(basket));

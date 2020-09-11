@@ -4,6 +4,8 @@ using AutoMapper;
 using Domain.Frames;
 using Domain.Interfaces;
 using Endpoint.Helpers;
+using Endpoint.Helpers.Error;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using Model.Dtos;
@@ -19,17 +21,18 @@ namespace Endpoint.Controllers
             _mapper = mapper;
             _uow = uow;
         }
-        [HttpGet("brands")]
+        [Cached(1200)][HttpGet("brands")]
         public async Task<ActionResult<IList<ProductBrand>>> GetProductBrands()
         {
             return Ok(await _uow.Repo<ProductBrand>().GetAllAsync());
         }
-        [HttpGet("categories")]
+        [Cached(600)][HttpGet("categories")]
         public async Task<ActionResult<IList<ProductCategory>>> GetProductCategories()
         {
             return Ok(await _uow.Repo<ProductCategory>().GetAllAsync());
         }
-        [HttpGet]
+
+        [Cached(600)][HttpGet]
         public async Task<ActionResult<IList<ProductToReturn>>> GetProducts([FromQuery]FrameParams frameParams)
         {
             var products = await _uow.Repo<Product>().GetAllWithFrame (
@@ -43,7 +46,9 @@ namespace Endpoint.Controllers
                 new Pagination<ProductToReturn>(frameParams.PageIndex, frameParams.PageSize, totalItems, data)
             );
         }
-        [HttpGet("{id}")]
+        [Cached(600)][HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductToReturn>> GetProduct(int id)
         {
             var product = await _uow.Repo<Product>().GetWithFrame(

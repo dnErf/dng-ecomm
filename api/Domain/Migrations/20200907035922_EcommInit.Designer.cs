@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Domain.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20200823034650_OrderAggregate")]
-    partial class OrderAggregate
+    [Migration("20200907035922_EcommInit")]
+    partial class EcommInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

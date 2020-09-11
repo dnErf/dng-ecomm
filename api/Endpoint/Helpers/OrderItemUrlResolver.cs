@@ -14,7 +14,11 @@ namespace Endpoint.Helpers
         }
         public string Resolve(OrderItem source, OrderItemDTO destination, string destMember, ResolutionContext context)
         {
-            if (!string.IsNullOrEmpty(source.ItemOrdered.PictureUrl))
+            // if (!(source.ItemOrdered is null) && !string.IsNullOrEmpty(source.ItemOrdered.PictureUrl))
+            // {
+            //     return _config["ApiUrl"] + source.ItemOrdered.PictureUrl;
+            // }
+            if (!string.IsNullOrEmpty(source.ItemOrdered?.PictureUrl))
             {
                 return _config["ApiUrl"] + source.ItemOrdered.PictureUrl;
             }

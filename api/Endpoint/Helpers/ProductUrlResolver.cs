@@ -16,7 +16,7 @@ namespace Endpoint.Helpers
         {
             if (!string.IsNullOrEmpty(source.PictureUrl))
             {
-                return _config["ApiUrl"] + source.PictureUrl;
+                return _config["ImageUrl"] + "assets/" + source.PictureUrl;
             }
             return null;
         }

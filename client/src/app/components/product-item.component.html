@@ -1,8 +1,14 @@
 <div class="card mb-4 shadow-sm" >
   <!-- style="height: 28rem;" -->
-  <div >
+  <div class="ml-auto mr-auto mt-1" >
     <!-- style="min-height: 12rem;" -->
-    <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+    <ng-container *ngIf="product.pictureUrl === ''">
+      <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+    </ng-container>
+    <ng-container *ngIf="product.pictureUrl !== ''">
+      <img src="{{ product.pictureUrl }}" alt="{{ product.name }}" >
+    </ng-container>
+    
   </div>
   <div class="card-body">
     <a routerLink="/shop/{{ product.id }}">
