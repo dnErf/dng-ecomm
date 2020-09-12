@@ -10,5 +10,6 @@
 
 ## Features
 - error normalization
+- on memory cache
 - stripe payments
 
