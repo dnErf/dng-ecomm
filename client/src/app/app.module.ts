@@ -8,19 +8,22 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 // ---
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrandsResolver } from 'src/app/core/resolvers/brands.resolver';
 import { CategoriesResolver } from 'src/app/core/resolvers/categories.resolver';
 import { ErrorInterceptor } from 'src/app/core/interceptors/error.interceptor';
-import { HomePage } from 'src/app/pages/home/home.page';
 import { JwtInterceptor } from 'src/app/core/interceptors/jwt.interceptor';
 import { LoadingInterceptor } from 'src/app/core/interceptors/loading.interceptor';
-import { NotFoundComponent } from 'src/app/components/not-found.component';
 import { ProductService } from 'src/app/core/services/product.service';
+// ---
+import { AboutPage } from './pages/about/about.page';
+import { AppComponent } from './app.component';
+import { HomePage } from 'src/app/pages/home/home.page';
+import { NotFoundComponent } from 'src/app/components/not-found.component';
 import { ServerErrorComponent } from 'src/app/components/server-error.component';
 
 @NgModule({
   declarations: [
+    AboutPage,
     AppComponent,
     NotFoundComponent,
     ServerErrorComponent,
